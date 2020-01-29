@@ -79,6 +79,22 @@ QUESTIONS = [
         "D": "Las Vegas",
         "solution": "D"
     },
+    {
+        "question": 'Completa a frase: \n"Deus escreve direito por..."?',
+        "A": "Curvas tortas",
+        "B": "Linhas tortas",
+        "C": "Linhas de comboio",
+        "D": "Semi-retas direitas",
+        "solution": "B"
+    },
+    {
+        "question": 'Qual é o único número primo que é par?',
+        "A": "2",
+        "B": "6",
+        "C": "4",
+        "D": "8",
+        "solution": "2"
+    },
 ]
 
 PRIZES = [

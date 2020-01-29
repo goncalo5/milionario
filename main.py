@@ -23,6 +23,7 @@ class Game(Screen):
         "C": False,
         "D": False
     })
+    current_button_selected = kp.StringProperty("")
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -39,7 +40,7 @@ class Game(Screen):
 
     def check(self, *args):
         print("check", args)
-        answer = args[0]
+        answer = self.current_button_selected
         if answer == self.solution:
             print("correct")
             self.current_question += 1

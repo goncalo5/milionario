@@ -1,3 +1,21 @@
+#:kivy 1.10.1
+#:import Factory kivy.factory.Factory
+
+<MyPopup@Popup>:
+    # auto_dismiss: False
+    size_hint: 0.5, 0.5
+    title: "É esta a tua resposta final?"
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            text: 'Sim'
+            on_release:
+                app.metagame.game.check()
+                root.dismiss()
+        Button:
+            text: 'Não'
+            on_release: root.dismiss()
+
 <Game>:
     BoxLayout:
         orientation: "vertical"
@@ -21,21 +39,29 @@
             Button:
                 text: root.A
                 disabled: root.button_disabled["A"]
-                on_press: root.check("A")
+                on_release:
+                    root.current_button_selected = "A"
+                    Factory.MyPopup().open()
             Button:
                 text: root.B
                 disabled: root.button_disabled["B"]
-                on_press: root.check("B")
+                on_release:
+                    root.current_button_selected = "B"
+                    Factory.MyPopup().open()
         BoxLayout:
             orientation: "horizontal"
             Button:
                 text: root.C
                 disabled: root.button_disabled["C"]
-                on_press: root.check("C")
+                on_release:
+                    root.current_button_selected = "C"
+                    Factory.MyPopup().open()
             Button:
                 text: root.D
                 disabled: root.button_disabled["D"]
-                on_press: root.check("D")
+                on_release:
+                    root.current_button_selected = "D"
+                    Factory.MyPopup().open()
 
 <GameOverScreen@Screen>:
     Label:
