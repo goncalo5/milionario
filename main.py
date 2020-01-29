@@ -24,6 +24,7 @@ class Game(Screen):
         "D": False
     })
     current_button_selected = kp.StringProperty("")
+    public_perc = kp.DictProperty()
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -74,6 +75,22 @@ class Game(Screen):
     def skip_question(self):
         self.current_question += 1
         self.update_question()
+
+    def public_help(self):
+        print("public_help()")
+        remaining_perc = 100
+        available_choices = ["A", "B", "C", "D"]
+        self.public_perc = {}
+        self.public_perc[self.solution] = random.randint(0, remaining_perc)
+        remaining_perc -= self.public_perc[self.solution]
+        available_choices.remove(self.solution)
+        random.shuffle(available_choices)
+        while available_choices:
+            option = available_choices.pop()
+            self.public_perc[option] = random.randint(0, remaining_perc)
+            remaining_perc -= self.public_perc[option]
+        self.public_perc[self.solution] += remaining_perc
+        print("perc", self.public_perc)
 
 
 class MetaGame(ScreenManager):

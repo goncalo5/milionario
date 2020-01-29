@@ -1,7 +1,7 @@
 #:kivy 1.10.1
 #:import Factory kivy.factory.Factory
 
-<MyPopup@Popup>:
+<CofirmAnswerPopup@Popup>:
     # auto_dismiss: False
     size_hint: 0.5, 0.5
     title: "É esta a tua resposta final?"
@@ -16,6 +16,21 @@
             text: 'Não'
             on_release: root.dismiss()
 
+<PublicHelpPopup@Popup>:
+    # auto_dismiss: False
+    size_hint: 0.5, 0.5
+    title: "Public help"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: 'A: %s%%' % app.metagame.game.public_perc["A"]
+        Label:
+            text: 'B: %s%%' % app.metagame.game.public_perc["B"]
+        Label:
+            text: 'C: %s%%' % app.metagame.game.public_perc["C"]
+        Label:
+            text: 'D: %s%%' % app.metagame.game.public_perc["D"]
+
 <Game>:
     BoxLayout:
         orientation: "vertical"
@@ -23,6 +38,10 @@
             orientation: "horizontal"
             Button:
                 text: "public"
+                on_release:
+                    self.disabled = True
+                    root.public_help()
+                    Factory.PublicHelpPopup().open()
             Button:
                 text: "phone"
             Button:
@@ -44,13 +63,13 @@
                 disabled: root.button_disabled["A"]
                 on_release:
                     root.current_button_selected = "A"
-                    Factory.MyPopup().open()
+                    Factory.CofirmAnswerPopup().open()
             Button:
                 text: "B: %s" % root.B
                 disabled: root.button_disabled["B"]
                 on_release:
                     root.current_button_selected = "B"
-                    Factory.MyPopup().open()
+                    Factory.CofirmAnswerPopup().open()
         BoxLayout:
             orientation: "horizontal"
             Button:
@@ -58,13 +77,13 @@
                 disabled: root.button_disabled["C"]
                 on_release:
                     root.current_button_selected = "C"
-                    Factory.MyPopup().open()
+                    Factory.CofirmAnswerPopup().open()
             Button:
                 text: "D: %s" % root.D
                 disabled: root.button_disabled["D"]
                 on_release:
                     root.current_button_selected = "D"
-                    Factory.MyPopup().open()
+                    Factory.CofirmAnswerPopup().open()
 
 <GameOverScreen@Screen>:
     Label:
