@@ -1,0 +1,21 @@
+<Game>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: root.question
+        BoxLayout:
+            orientation: "horizontal"
+            Button:
+                text: root.A
+                on_press: root.check("A")
+            Button:
+                text: root.B
+                on_press: root.check("B")
+        BoxLayout:
+            orientation: "horizontal"
+            Button:
+                text: root.C
+                on_press: root.check("C")
+            Button:
+                text: root.D
+                on_press: root.check("D")
