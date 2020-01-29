@@ -26,10 +26,13 @@
             Button:
                 text: "phone"
             Button:
-                text: "changing"
+                text: "skip"
+                on_release:
+                    self.disabled = True
+                    root.skip_question()
             Button:
                 text: "50:50"
-                on_press:
+                on_release:
                     self.disabled = True
                     root.use_50_50()
         Label:
@@ -37,13 +40,13 @@
         BoxLayout:
             orientation: "horizontal"
             Button:
-                text: root.A
+                text: "A: %s" % root.A
                 disabled: root.button_disabled["A"]
                 on_release:
                     root.current_button_selected = "A"
                     Factory.MyPopup().open()
             Button:
-                text: root.B
+                text: "B: %s" % root.B
                 disabled: root.button_disabled["B"]
                 on_release:
                     root.current_button_selected = "B"
@@ -51,13 +54,13 @@
         BoxLayout:
             orientation: "horizontal"
             Button:
-                text: root.C
+                text: "C: %s" % root.C
                 disabled: root.button_disabled["C"]
                 on_release:
                     root.current_button_selected = "C"
                     Factory.MyPopup().open()
             Button:
-                text: root.D
+                text: "D: %s" % root.D
                 disabled: root.button_disabled["D"]
                 on_release:
                     root.current_button_selected = "D"

@@ -71,6 +71,10 @@ class Game(Screen):
         for choice_to_disable in choices_to_disable:
             self.button_disabled[choice_to_disable] = True
 
+    def skip_question(self):
+        self.current_question += 1
+        self.update_question()
+
 
 class MetaGame(ScreenManager):
     pass
