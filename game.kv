@@ -19,3 +19,20 @@
             Button:
                 text: root.D
                 on_press: root.check("D")
+
+<GameOverScreen@Screen>:
+    Label:
+        text: "You WIN"
+
+<MetaGame>:
+    id: metagame
+    game: game
+    game_over_screen: game_over_screen
+    Game:
+        id: game
+        name: "game"
+        manager: metagame
+    GameOverScreen:
+        id: game_over_screen
+        name: "game_over_screen"
+        manager: metagame

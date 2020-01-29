@@ -37,7 +37,9 @@ class Game(Screen):
             print("correct")
             self.current_question += 1
             if self.current_question == len(QUESTIONS):
-                print("YOU WIN")
+                print("YOU WIN", self.manager.current)
+                self.manager.current = "game_over_screen"
+                print("YOU WIN", self.manager.current)
                 return
         else:
             print("incorrect")
@@ -45,11 +47,15 @@ class Game(Screen):
         self.update_question()
 
 
+class MetaGame(ScreenManager):
+    pass
+
+
 class GameApp(App):
 
     def build(self):
-        self.game = Game()
-        return self.game
+        self.metagame = MetaGame()
+        return self.metagame
 
 
 if __name__ == "__main__":
