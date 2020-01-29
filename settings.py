@@ -114,3 +114,17 @@ PRIZES = [
     30000,
     100000,
 ]
+
+FRIENDS = [
+    "Chefe",
+    "Dog",
+    "Freddy Mercúrio",
+    "Derp"
+]
+
+PRETTY_ANSWERS = [
+    "Tenho a certeza que a resposta é",
+    "DUH! De certeza que é",
+    "Não percebo como não sabes esta... a resposta é",
+    "Esta é fácil"
+]

@@ -31,6 +31,19 @@
         Label:
             text: 'D: %s%%' % app.metagame.game.public_perc["D"]
 
+<FriendHelpPopup@Popup>:
+    # auto_dismiss: False
+    size_hint: 0.5, 0.5
+    title: "Escolhe um amigo"
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            text: '%s' % app.metagame.game.random_friends[0]
+        Button:
+            text: '%s' % app.metagame.game.random_friends[1]
+        Button:
+            text: '%s' % app.metagame.game.random_friends[2]
+
 <Game>:
     BoxLayout:
         orientation: "vertical"
@@ -44,6 +57,10 @@
                     Factory.PublicHelpPopup().open()
             Button:
                 text: "phone"
+                on_release:
+                    self.disabled = True
+                    root.generate_random_friends()
+                    Factory.FriendHelpPopup().open()
             Button:
                 text: "skip"
                 on_release:
