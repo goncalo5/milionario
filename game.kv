@@ -11,23 +11,30 @@
                 text: "changing"
             Button:
                 text: "50:50"
+                on_press:
+                    self.disabled = True
+                    root.use_50_50()
         Label:
             text: root.question
         BoxLayout:
             orientation: "horizontal"
             Button:
                 text: root.A
+                disabled: root.button_disabled["A"]
                 on_press: root.check("A")
             Button:
                 text: root.B
+                disabled: root.button_disabled["B"]
                 on_press: root.check("B")
         BoxLayout:
             orientation: "horizontal"
             Button:
                 text: root.C
+                disabled: root.button_disabled["C"]
                 on_press: root.check("C")
             Button:
                 text: root.D
+                disabled: root.button_disabled["D"]
                 on_press: root.check("D")
 
 <GameOverScreen@Screen>:

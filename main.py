@@ -1,4 +1,5 @@
-
+# python modules:
+import random
 # kivy modules:
 from kivy.app import App
 from kivy import properties as kp
@@ -16,6 +17,12 @@ class Game(Screen):
     C = kp.StringProperty()
     D = kp.StringProperty()
     current_question = 0
+    button_disabled = kp.DictProperty({
+        "A": False,
+        "B": False,
+        "C": False,
+        "D": False
+    })
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -45,6 +52,23 @@ class Game(Screen):
             print("incorrect")
             self.current_question = 0
         self.update_question()
+        self.button_disabled = {
+            "A": False,
+            "B": False,
+            "C": False,
+            "D": False
+        }
+
+    def use_50_50(self, *args):
+        print("use_50_50()", args)
+        choices_to_disable = ["A", "B", "C", "D"]
+        choices_to_disable.remove(self.solution)
+        print("choices_to_disable", choices_to_disable)
+        random.shuffle(choices_to_disable)
+        choices_to_disable = choices_to_disable[0:2]
+        print("choices_to_disable", choices_to_disable)
+        for choice_to_disable in choices_to_disable:
+            self.button_disabled[choice_to_disable] = True
 
 
 class MetaGame(ScreenManager):
