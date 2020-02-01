@@ -31,10 +31,10 @@
         Label:
             text: 'D: %s%%' % app.metagame.game.public_perc["D"]
 
-<FriendHelpPopup@Popup>:
+<FriendHelpAnswerPopup@Popup>:
     # auto_dismiss: False
     size_hint: 0.5, 0.5
-    title: "Escolhe um amigo"
+    title: app.metagame.game.chosen_friend
     BoxLayout:
         orientation: "vertical"
         Button:
@@ -43,6 +43,28 @@
             text: '%s' % app.metagame.game.random_friends[1]
         Button:
             text: '%s' % app.metagame.game.random_friends[2]
+
+<FriendHelpPopup@Popup>:
+    # auto_dismiss: False
+    size_hint: 0.5, 0.5
+    title: "Escolhe um amigo"
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            text: '%s' % app.metagame.game.random_friends[0]
+            on_release:
+                app.metagame.game.chosen_friend = app.metagame.game.random_friends[0]
+                Factory.FriendHelpAnswerPopup().open()
+        Button:
+            text: '%s' % app.metagame.game.random_friends[1]
+            on_release:
+                app.metagame.game.chosen_friend = app.metagame.game.random_friends[1]
+                Factory.FriendHelpAnswerPopup().open()
+        Button:
+            text: '%s' % app.metagame.game.random_friends[2]
+            on_release:
+                app.metagame.game.chosen_friend = app.metagame.game.random_friends[1]
+                Factory.FriendHelpAnswerPopup().open()
 
 <Game>:
     BoxLayout:

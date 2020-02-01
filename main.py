@@ -7,7 +7,7 @@ from kivy import properties as kp
 from kivy.uix.screenmanager import ScreenManager, NoTransition, Screen
 from kivy.uix.relativelayout import RelativeLayout
 # self modules:
-from settings import QUESTIONS, FRIENDS
+from settings import QUESTIONS, FRIENDS, PRETTY_ANSWERS
 
 
 class Game(Screen):
@@ -26,6 +26,8 @@ class Game(Screen):
     current_button_selected = kp.StringProperty("")
     public_perc = kp.DictProperty()
     random_friends = kp.ListProperty(["", "", ""])
+    chosen_friend = kp.StringProperty("")
+    friend_answer = kp.StringProperty()
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -97,6 +99,9 @@ class Game(Screen):
         friends = FRIENDS
         random.shuffle(friends)
         self.random_friends = friends[:3]
+
+    def generate_random_friend_answer(self):
+        random.choice(PRETTY_ANSWERS)
 
 class MetaGame(ScreenManager):
     pass
