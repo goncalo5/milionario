@@ -12,10 +12,6 @@ from settings import QUESTIONS, FRIENDS, PRETTY_ANSWERS
 
 class Game(Screen):
     question = kp.StringProperty()
-    A = kp.StringProperty()
-    B = kp.StringProperty()
-    C = kp.StringProperty()
-    D = kp.StringProperty()
     options = kp.DictProperty({
         "A": "", "B": "", "C": "", "D": ""
     })
@@ -47,10 +43,7 @@ class Game(Screen):
     def update_question(self):
         question_dict = QUESTIONS[self.current_question]
         self.question = question_dict.get("question")
-        self.A = question_dict.get("A")
-        self.B = question_dict.get("B")
-        self.C = question_dict.get("C")
-        self.D = question_dict.get("D")
+        self.options = question_dict
         self.solution = question_dict.get("solution")
 
     def check(self, *args):
