@@ -72,39 +72,39 @@
             orientation: "horizontal"
             Button:
                 text: "public"
+                disabled: root.help_button_disabled[self.text]
                 on_release:
-                    self.disabled = True
-                    root.public_help()
+                    root.help(self.text)
                     Factory.PublicHelpPopup().open()
             Button:
                 text: "phone"
+                disabled: root.help_button_disabled[self.text]
                 on_release:
-                    self.disabled = True
-                    root.generate_random_friends()
+                    root.help(self.text)
                     Factory.FriendHelpPopup().open()
             Button:
                 text: "skip"
+                disabled: root.help_button_disabled[self.text]
                 on_release:
-                    self.disabled = True
-                    root.skip_question()
+                    root.help(self.text)
             Button:
                 text: "50:50"
+                disabled: root.help_button_disabled[self.text]
                 on_release:
-                    self.disabled = True
-                    root.use_50_50()
+                    root.help(self.text)
         Label:
             text: root.question
         BoxLayout:
             orientation: "horizontal"
             Button:
                 text: "A: %s" % root.A
-                disabled: root.button_disabled["A"]
+                disabled: root.option_button_disabled["A"]
                 on_release:
                     root.current_button_selected = "A"
                     Factory.CofirmAnswerPopup().open()
             Button:
                 text: "B: %s" % root.B
-                disabled: root.button_disabled["B"]
+                disabled: root.option_button_disabled["B"]
                 on_release:
                     root.current_button_selected = "B"
                     Factory.CofirmAnswerPopup().open()
@@ -112,13 +112,13 @@
             orientation: "horizontal"
             Button:
                 text: "C: %s" % root.C
-                disabled: root.button_disabled["C"]
+                disabled: root.option_button_disabled["C"]
                 on_release:
                     root.current_button_selected = "C"
                     Factory.CofirmAnswerPopup().open()
             Button:
                 text: "D: %s" % root.D
-                disabled: root.button_disabled["D"]
+                disabled: root.option_button_disabled["D"]
                 on_release:
                     root.current_button_selected = "D"
                     Factory.CofirmAnswerPopup().open()

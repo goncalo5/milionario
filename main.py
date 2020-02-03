@@ -21,11 +21,17 @@ class Game(Screen):
     })
     available_choices = kp.ListProperty(["A", "B", "C", "D"])
     current_question = 0
-    button_disabled = kp.DictProperty({
+    option_button_disabled = kp.DictProperty({
         "A": False,
         "B": False,
         "C": False,
         "D": False
+    })
+    help_button_disabled = kp.DictProperty({
+        "public": False,
+        "phone": False,
+        "skip": False,
+        "50:50": False
     })
     current_button_selected = kp.StringProperty("")
     public_perc = kp.DictProperty()
@@ -61,13 +67,21 @@ class Game(Screen):
         else:
             print("incorrect")
             self.current_question = 0
+            self.help_button_disabled = {
+                "public": False,
+                "phone": False,
+                "skip": False,
+                "50:50": False
+            }
         self.update_question()
-        self.button_disabled = {
+        print("self.option_button_disabled", self.option_button_disabled)
+        self.option_button_disabled = {
             "A": False,
             "B": False,
             "C": False,
             "D": False
         }
+        print("self.option_button_disabled", self.option_button_disabled)
 
     def use_50_50(self, *args):
         print("use_50_50()", args)
@@ -78,25 +92,41 @@ class Game(Screen):
         choices_to_disable = choices_to_disable[0:2]
         print("choices_to_disable", choices_to_disable)
         for choice_to_disable in choices_to_disable:
-            self.button_disabled[choice_to_disable] = True
+            self.option_button_disabled[choice_to_disable] = True
 
     def skip_question(self):
         self.current_question += 1
         self.update_question()
 
+    def help(self, help_name):
+        print("self.help_button_disabled", self.help_button_disabled)
+        self.help_button_disabled[help_name] = True
+        print("self.help_button_disabled", self.help_button_disabled)
+        if help_name == "public":
+            self.public_help()
+        if help_name == "phone":
+            self.generate_random_friends()
+        if help_name == "skip":
+            self.skip_question()
+        if help_name == "50:50":
+            self.use_50_50()
+
     def public_help(self):
         print("public_help()")
+        print("self.public_perc", self.public_perc)
         remaining_perc = 100
-        self.public_perc = {}
-        self.public_perc[self.solution] = random.randint(0, remaining_perc)
-        remaining_perc -= self.public_perc[self.solution]
-        self.available_choices.remove(self.solution)
-        random.shuffle(self.available_choices)
-        while self.available_choices:
-            option = self.available_choices.pop()
-            self.public_perc[option] = random.randint(0, remaining_perc)
-            remaining_perc -= self.public_perc[option]
-        self.public_perc[self.solution] += remaining_perc
+        public_perc = {}
+        public_perc[self.solution] = random.randint(0, remaining_perc)
+        remaining_perc -= public_perc[self.solution]
+        available_choices = self.available_choices.copy()
+        available_choices.remove(self.solution)
+        random.shuffle(available_choices)
+        while available_choices:
+            option = available_choices.pop()
+            public_perc[option] = random.randint(0, remaining_perc)
+            remaining_perc -= public_perc[option]
+        public_perc[self.solution] += remaining_perc
+        self.public_perc = public_perc
         print("perc", self.public_perc)
 
     def generate_random_friends(self):
@@ -110,7 +140,9 @@ class Game(Screen):
         else:
             print("self.available_choices.copy()", self.available_choices.copy())
             print("self.solution", self.solution)
+            print("self.available_choices", self.available_choices)
             bad_answers = self.available_choices.copy()
+            print("self.available_choices", self.available_choices)
             bad_answers.remove(self.solution)
             print("bad_answers", bad_answers)
             answer = random.choice(bad_answers)
