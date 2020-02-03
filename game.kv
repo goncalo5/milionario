@@ -52,18 +52,21 @@
                 app.metagame.game.chosen_friend = app.metagame.game.random_friends[0]
                 app.metagame.game.generate_random_friend_answer()
                 Factory.FriendHelpAnswerPopup().open()
+                root.dismiss()
         Button:
             text: '%s' % app.metagame.game.random_friends[1]
             on_release:
                 app.metagame.game.chosen_friend = app.metagame.game.random_friends[1]
                 app.metagame.game.generate_random_friend_answer()
                 Factory.FriendHelpAnswerPopup().open()
+                root.dismiss()
         Button:
             text: '%s' % app.metagame.game.random_friends[2]
             on_release:
                 app.metagame.game.chosen_friend = app.metagame.game.random_friends[1]
                 app.metagame.game.generate_random_friend_answer()
                 Factory.FriendHelpAnswerPopup().open()
+                root.dismiss()
 
 <Game>:
     BoxLayout:
