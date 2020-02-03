@@ -9,11 +9,13 @@ from kivy.uix.screenmanager import ScreenManager, NoTransition, Screen
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
+from kivy.uix.button import Button
 # self modules:
 from settings import QUESTIONS, FRIENDS, PRETTY_ANSWERS, PRIZES, TIME_TO_CHANGE_MONEY_SCREEN, PROB_OF_A_FRIEND_GETTING_IT_RIGHT
 
 
 class MoneyScreen(Screen):
+    current_money_i = kp.NumericProperty(0)
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -23,7 +25,9 @@ class MoneyScreen(Screen):
         PRIZES.reverse()
         for prize in PRIZES:
             print(prize)
-            prize_label = Label(text="€%s" % prize)
+            prize_label = Button(text="€%s" % prize)
+            prize_label.is_current = False
+            prize_label.background_color = 0,0,1,1
             box.add_widget(prize_label)
 
 class QuestionsScreen(Screen):
