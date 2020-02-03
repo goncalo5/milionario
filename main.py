@@ -16,6 +16,10 @@ class Game(Screen):
     B = kp.StringProperty()
     C = kp.StringProperty()
     D = kp.StringProperty()
+    options = kp.DictProperty({
+        "A": "", "B": "", "C": "", "D": ""
+    })
+    available_choices = kp.ListProperty(["A", "B", "C", "D"])
     current_question = 0
     button_disabled = kp.DictProperty({
         "A": False,
@@ -28,6 +32,7 @@ class Game(Screen):
     random_friends = kp.ListProperty(["", "", ""])
     chosen_friend = kp.StringProperty("")
     friend_answer = kp.StringProperty()
+    pretty_solution = kp.StringProperty()
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -82,14 +87,13 @@ class Game(Screen):
     def public_help(self):
         print("public_help()")
         remaining_perc = 100
-        available_choices = ["A", "B", "C", "D"]
         self.public_perc = {}
         self.public_perc[self.solution] = random.randint(0, remaining_perc)
         remaining_perc -= self.public_perc[self.solution]
-        available_choices.remove(self.solution)
-        random.shuffle(available_choices)
-        while available_choices:
-            option = available_choices.pop()
+        self.available_choices.remove(self.solution)
+        random.shuffle(self.available_choices)
+        while self.available_choices:
+            option = self.available_choices.pop()
             self.public_perc[option] = random.randint(0, remaining_perc)
             remaining_perc -= self.public_perc[option]
         self.public_perc[self.solution] += remaining_perc
@@ -101,7 +105,17 @@ class Game(Screen):
         self.random_friends = friends[:3]
 
     def generate_random_friend_answer(self):
-        random.choice(PRETTY_ANSWERS)
+        if random.random() < 0.5:
+            answer = self.solution
+        else:
+            print("self.available_choices.copy()", self.available_choices.copy())
+            print("self.solution", self.solution)
+            bad_answers = self.available_choices.copy()
+            bad_answers.remove(self.solution)
+            print("bad_answers", bad_answers)
+            answer = random.choice(bad_answers)
+        answer = QUESTIONS[self.current_question][answer]
+        self.pretty_solution = "%s %s" % (random.choice(PRETTY_ANSWERS), answer)
 
 class MetaGame(ScreenManager):
     pass

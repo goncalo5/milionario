@@ -125,6 +125,6 @@ FRIENDS = [
 PRETTY_ANSWERS = [
     "Tenho a certeza que a resposta é",
     "DUH! De certeza que é",
-    "Não percebo como não sabes esta... a resposta é",
+    "Não percebo como não sabes\nesta... a resposta é",
     "Esta é fácil"
 ]
