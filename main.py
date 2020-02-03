@@ -3,12 +3,28 @@ import random
 # kivy modules:
 from kivy.app import App
 from kivy import properties as kp
+from kivy.clock import Clock
     # uix:
 from kivy.uix.screenmanager import ScreenManager, NoTransition, Screen
 from kivy.uix.relativelayout import RelativeLayout
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.label import Label
 # self modules:
-from settings import QUESTIONS, FRIENDS, PRETTY_ANSWERS
+from settings import QUESTIONS, FRIENDS, PRETTY_ANSWERS, PRIZES, TIME_TO_CHANGE_MONEY_SCREEN
 
+
+class MoneyScreen(Screen):
+
+    def __init__(self, **kwargs):
+        super().__init__()
+        box = BoxLayout(orientation="vertical")
+        self.add_widget(box)
+
+        PRIZES.reverse()
+        for prize in PRIZES:
+            print(prize)
+            prize_label = Label(text="€%s" % prize)
+            box.add_widget(prize_label)
 
 class Game(Screen):
     question = kp.StringProperty()
@@ -143,7 +159,12 @@ class Game(Screen):
         self.pretty_solution = "%s %s" % (random.choice(PRETTY_ANSWERS), answer)
 
 class MetaGame(ScreenManager):
-    pass
+    def change_to_game_screen(self):
+        print("change_to_game_screen()")
+        Clock.schedule_once(self.change_to_game_screen_after_some_time, TIME_TO_CHANGE_MONEY_SCREEN)
+
+    def change_to_game_screen_after_some_time(self, dt):
+        self.current = "game"
 
 
 class GameApp(App):
