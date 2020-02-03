@@ -1,5 +1,21 @@
 QUESTIONS = [
     {
+        "question": "Qual é a primeira letra do alfabeto latino?",
+        "A": "B",
+        "B": "E",
+        "C": "X",
+        "D": "A",
+        "solution": "D"
+    },
+    {
+        "question": "Quantos satélites naturais tem o planeta Terra?",
+        "A": "1",
+        "B": "2",
+        "C": "3",
+        "D": "0",
+        "solution": "1"
+    },
+    {
         "question": "A personagem de cinema \"John Rambo\" \nfoi interpretada por que ator?",
         "A": "Vin Diesel",
         "B": "Sylvester Stallone",
@@ -93,7 +109,15 @@ QUESTIONS = [
         "B": "6",
         "C": "4",
         "D": "8",
-        "solution": "2"
+        "solution": "A"
+    },
+    {
+        "question": 'Que órgão dp corpo humano é responsável pela desintoxicação do organismo?',
+        "A": "Fígado",
+        "B": "Pulmão",
+        "C": "Coração",
+        "D": "Pâncreas",
+        "solution": "A"
     },
 ]
 
