@@ -10,7 +10,7 @@ from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 # self modules:
-from settings import QUESTIONS, FRIENDS, PRETTY_ANSWERS, PRIZES, TIME_TO_CHANGE_MONEY_SCREEN
+from settings import QUESTIONS, FRIENDS, PRETTY_ANSWERS, PRIZES, TIME_TO_CHANGE_MONEY_SCREEN, PROB_OF_A_FRIEND_GETTING_IT_RIGHT
 
 
 class MoneyScreen(Screen):
@@ -144,7 +144,7 @@ class QuestionsScreen(Screen):
         self.random_friends = friends[:3]
 
     def generate_random_friend_answer(self):
-        if random.random() < 0.5:
+        if random.random() < PROB_OF_A_FRIEND_GETTING_IT_RIGHT:
             answer = self.solution
         else:
             print("self.available_choices.copy()", self.available_choices.copy())
@@ -164,14 +164,14 @@ class Game(ScreenManager):
         Clock.schedule_once(self.change_to_game_screen_after_some_time, TIME_TO_CHANGE_MONEY_SCREEN)
 
     def change_to_game_screen_after_some_time(self, dt):
-        self.current = "game"
+        self.current = "questions_screen"
 
 
 class GameApp(App):
 
     def build(self):
-        self.metagame = Game()
-        return self.metagame
+        self.game = Game()
+        return self.game
 
 
 if __name__ == "__main__":

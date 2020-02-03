@@ -10,7 +10,7 @@
         Button:
             text: 'Sim'
             on_release:
-                app.metagame.game.check()
+                app.game.questions_screen.check()
                 root.dismiss()
         Button:
             text: 'Não'
@@ -23,22 +23,22 @@
     BoxLayout:
         orientation: "vertical"
         Label:
-            text: 'A: %s%%' % app.metagame.game.public_perc["A"]
+            text: 'A: %s%%' % app.game.questions_screen.public_perc["A"]
         Label:
-            text: 'B: %s%%' % app.metagame.game.public_perc["B"]
+            text: 'B: %s%%' % app.game.questions_screen.public_perc["B"]
         Label:
-            text: 'C: %s%%' % app.metagame.game.public_perc["C"]
+            text: 'C: %s%%' % app.game.questions_screen.public_perc["C"]
         Label:
-            text: 'D: %s%%' % app.metagame.game.public_perc["D"]
+            text: 'D: %s%%' % app.game.questions_screen.public_perc["D"]
 
 <FriendHelpAnswerPopup@Popup>:
     # auto_dismiss: False
     size_hint: 0.95, 0.5
-    title: app.metagame.game.chosen_friend
+    title: app.game.questions_screen.chosen_friend
     BoxLayout:
         orientation: "vertical"
         Label:
-            text: '%s' % app.metagame.game.pretty_solution
+            text: '%s' % app.game.questions_screen.pretty_solution
 
 <FriendHelpPopup@Popup>:
     # auto_dismiss: False
@@ -47,24 +47,24 @@
     BoxLayout:
         orientation: "vertical"
         Button:
-            text: '%s' % app.metagame.game.random_friends[0]
+            text: '%s' % app.game.questions_screen.random_friends[0]
             on_release:
-                app.metagame.game.chosen_friend = app.metagame.game.random_friends[0]
-                app.metagame.game.generate_random_friend_answer()
+                app.game.questions_screen.chosen_friend = app.game.questions_screen.random_friends[0]
+                app.game.questions_screen.generate_random_friend_answer()
                 Factory.FriendHelpAnswerPopup().open()
                 root.dismiss()
         Button:
-            text: '%s' % app.metagame.game.random_friends[1]
+            text: '%s' % app.game.questions_screen.random_friends[1]
             on_release:
-                app.metagame.game.chosen_friend = app.metagame.game.random_friends[1]
-                app.metagame.game.generate_random_friend_answer()
+                app.game.questions_screen.chosen_friend = app.game.questions_screen.random_friends[1]
+                app.game.questions_screen.generate_random_friend_answer()
                 Factory.FriendHelpAnswerPopup().open()
                 root.dismiss()
         Button:
-            text: '%s' % app.metagame.game.random_friends[2]
+            text: '%s' % app.game.questions_screen.random_friends[2]
             on_release:
-                app.metagame.game.chosen_friend = app.metagame.game.random_friends[1]
-                app.metagame.game.generate_random_friend_answer()
+                app.game.questions_screen.chosen_friend = app.game.questions_screen.random_friends[1]
+                app.game.questions_screen.generate_random_friend_answer()
                 Factory.FriendHelpAnswerPopup().open()
                 root.dismiss()
 
@@ -136,7 +136,7 @@
             on_release:
                 print("New game")
                 root.manager.current = "money_screen"
-                app.metagame.change_to_game_screen()
+                app.game.change_to_game_screen()
 
 
 <GameOverScreen@Screen>:
@@ -144,22 +144,24 @@
         text: "You WIN"
 
 <Game>:
-    id: metagame
-    game: game
+    id: game
+    init_screen: init_screen
+    money_screen: money_screen
+    questions_screen: questions_screen
     game_over_screen: game_over_screen
     InitScreen:
         id: init_screen
         name: "init_screen"
-        manager: metagame
+        manager: game
     MoneyScreen:
         id: money_screen
         name: "money_screen"
-        manager: metagame
+        manager: game
     QuestionsScreen:
-        id: game
-        name: "game"
-        manager: metagame
+        id: questions_screen
+        name: "questions_screen"
+        manager: game
     GameOverScreen:
         id: game_over_screen
         name: "game_over_screen"
-        manager: metagame
+        manager: game

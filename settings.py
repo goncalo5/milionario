@@ -13,7 +13,7 @@ QUESTIONS = [
         "B": "2",
         "C": "3",
         "D": "0",
-        "solution": "1"
+        "solution": "A"
     },
     {
         "question": "A personagem de cinema \"John Rambo\" \nfoi interpretada por que ator?",
@@ -154,3 +154,5 @@ PRETTY_ANSWERS = [
     "Não percebo como não sabes\nesta... a resposta é",
     "Esta é fácil"
 ]
+
+PROB_OF_A_FRIEND_GETTING_IT_RIGHT = 0.8
