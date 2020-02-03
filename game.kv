@@ -68,7 +68,7 @@
                 Factory.FriendHelpAnswerPopup().open()
                 root.dismiss()
 
-<Game>:
+<QuestionsScreen>:
     BoxLayout:
         orientation: "vertical"
         BoxLayout:
@@ -143,7 +143,7 @@
     Label:
         text: "You WIN"
 
-<MetaGame>:
+<Game>:
     id: metagame
     game: game
     game_over_screen: game_over_screen
@@ -155,7 +155,7 @@
         id: money_screen
         name: "money_screen"
         manager: metagame
-    Game:
+    QuestionsScreen:
         id: game
         name: "game"
         manager: metagame

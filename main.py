@@ -26,7 +26,7 @@ class MoneyScreen(Screen):
             prize_label = Label(text="€%s" % prize)
             box.add_widget(prize_label)
 
-class Game(Screen):
+class QuestionsScreen(Screen):
     question = kp.StringProperty()
     options = kp.DictProperty({
         "A": "", "B": "", "C": "", "D": ""
@@ -158,7 +158,7 @@ class Game(Screen):
         answer = QUESTIONS[self.current_question][answer]
         self.pretty_solution = "%s %s" % (random.choice(PRETTY_ANSWERS), answer)
 
-class MetaGame(ScreenManager):
+class Game(ScreenManager):
     def change_to_game_screen(self):
         print("change_to_game_screen()")
         Clock.schedule_once(self.change_to_game_screen_after_some_time, TIME_TO_CHANGE_MONEY_SCREEN)
@@ -170,7 +170,7 @@ class MetaGame(ScreenManager):
 class GameApp(App):
 
     def build(self):
-        self.metagame = MetaGame()
+        self.metagame = Game()
         return self.metagame
 
 
