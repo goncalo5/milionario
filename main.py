@@ -19,16 +19,46 @@ class MoneyScreen(Screen):
 
     def __init__(self, **kwargs):
         super().__init__()
+        self.n_questions = len(PRIZES)
+
         box = BoxLayout(orientation="vertical")
         self.add_widget(box)
 
         PRIZES.reverse()
-        for prize in PRIZES:
-            print(prize)
+        self.all_prize_labels = []
+        for i, prize in enumerate(PRIZES):
+            print(prize, self.n_questions - i)
             prize_label = Button(text="€%s" % prize)
             prize_label.is_current = False
-            prize_label.background_color = 0,0,1,1
+            if self.n_questions - i - 1 == self.current_money_i:
+                color = 1,0,0,1
+            else:
+                color = 0,0,1,1
+            prize_label.background_color = color
+            self.all_prize_labels.append(prize_label)
             box.add_widget(prize_label)
+
+    def add_one(self):
+        print("add_one()")
+        self.current_money_i += 1
+        print("self.current_money_i: %s" % self.current_money_i)
+        self.update()
+
+    def start_over(self):
+        print("start_over()")
+        self.current_money_i = 0
+        print("self.current_money_i: %s" % self.current_money_i)
+        self.update()
+
+    def update(self):
+        for i, prize_label in enumerate(self.all_prize_labels):
+            if self.n_questions - i - 1 == self.current_money_i:
+                color = 1,0,0,1
+            else:
+                color = 0,0,1,1
+            prize_label.background_color = color
+
+
 
 class QuestionsScreen(Screen):
     question = kp.StringProperty()
@@ -72,6 +102,7 @@ class QuestionsScreen(Screen):
         if answer == self.solution:
             print("correct")
             self.current_question += 1
+            self.parent.money_screen.add_one()
             if self.current_question == len(QUESTIONS):
                 print("YOU WIN", self.manager.current)
                 self.manager.current = "game_over_screen"
@@ -80,6 +111,7 @@ class QuestionsScreen(Screen):
         else:
             print("incorrect")
             self.current_question = 0
+            self.parent.money_screen.start_over()
             self.help_button_disabled = {
                 "public": False,
                 "phone": False,
@@ -95,6 +127,8 @@ class QuestionsScreen(Screen):
             "D": False
         }
         print("self.option_button_disabled", self.option_button_disabled)
+        self.manager.current = "money_screen"
+        Clock.schedule_once(self.parent.change_to_game_screen_after_some_time, TIME_TO_CHANGE_MONEY_SCREEN)
 
     def use_50_50(self, *args):
         print("use_50_50()", args)
